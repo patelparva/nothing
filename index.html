@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Something Unexpected</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid text-center" style="background-color: #bf3131">
+      <h1 class="p-5" style="color: #f3edc8">Sorry or Thank you!</h1>
+      <img class="px-5 pb-3" src="./image/photo.jpg" alt="Your Image" />
+      <p class="h5" style="color: #f3edc8">This is the one who I like.</p>
+
+      <p class="h6 pt-3">Now Instant Decision:</p>
+      <a
+        name=""
+        id="reject-btn"
+        class="reject-btn btn btn-secondary"
+        href="#"
+        role="button"
+        >Reject Parva again</a
+      >
+      <a
+        name=""
+        id="continue-btn"
+        class="btn btn-secondary"
+        href="#"
+        role="button"
+        >Continue</a
+      >
+
+      <div class="rejected-msg d-none">
+        <p class="h5 px-5 pt-3" style="color: #f3edc8">
+          I understand. Sorry if I may have hurt you in any way. And if you
+          think that I am also like others who doesn't understand "No means No",
+          than I am Sorry. The only reason I am again asking you the same thing
+          is because I can't forget you. <br />Again I am Sorry! <br />And the
+          reason why I must have had a little hope is because you are way too
+          friendly with me nowadays. I don't know about others, but I surely
+          think a lot if someone like you behaves too friendly. And one
+          suggestion, do not be too friendly with others next time if you don't
+          like that person in that way. <br />
+          Again a huge
+        </p>
+        <p class="h1" style="color: #f3edc8">Sorry</p>
+        <p class="h5" style="color: #f3edc8">
+          I hope you don't say this thing to anybody else.
+        </p>
+      </div>
+
+      <div class="continue-msg d-none h5 pt-3" style="color: #f3edc8">
+        <p>
+          It's Unexpected that you continued. The reason why I am telling you
+          this right now is because my hopes have increased in past 2-3 weeks.
+          And don't think that you stopped liking Ved, that is why I am telling
+          you this right now. I had planned it from a long time. That is it. Now
+          I think, you would have decided.
+        </p>
+
+        <a
+          id="reject-final-btn"
+          class="reject-final-btn btn btn-secondary"
+          href="#"
+          role="button"
+          >Reject Finally</a
+        >
+        <a
+          name=""
+          id="accept-btn"
+          class="btn btn-secondary"
+          href="#"
+          role="button"
+          >Accept Parva if possible</a
+        >
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAjkfN02E_nhnDdP9u561lucZOTGourqOI",
+        authDomain: "proposal-72e30.firebaseapp.com",
+        projectId: "proposal-72e30",
+        storageBucket: "proposal-72e30.appspot.com",
+        messagingSenderId: "586760924145",
+        appId: "1:586760924145:web:dc405b28cc95c1a6ad3250",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      var reject_btn = document.getElementById("reject-btn");
+      var rejected_msg = document.querySelector(".rejected-msg");
+      var continue_btn = document.getElementById("continue-btn");
+      var continue_msg = document.querySelector(".continue-msg");
+      var reject_final_btn = document.getElementById("reject-final-btn");
+      var accepted_btn = document.getElementById("accept-btn");
+      //   var rejected_msg = document.querySelector(".rejected-msg");
+
+      reject_btn.addEventListener("click", async () => {
+        rejected_msg.classList.remove("d-none");
+        continue_msg.classList.add("d-none");
+
+        await db
+          .collection("Messages")
+          .add({ msg: "Rejected at the beggining", time: Date() });
+      });
+
+      continue_btn.addEventListener("click", async () => {
+        continue_msg.classList.remove("d-none");
+        rejected_msg.classList.add("d-none");
+
+        await db.collection("Messages").add({ msg: "Continued", time: Date() });
+      });
+
+      reject_final_btn.addEventListener("click", async () => {
+        rejected_msg.classList.remove("d-none");
+        continue_msg.classList.add("d-none");
+
+        await db
+          .collection("Messages")
+          .add({ msg: "Rejected Finally", time: Date() });
+      });
+
+      accepted_btn.addEventListener("click", async () => {
+        alert("Now chat on Instagram! Itne time mein itna hi hota hai");
+
+        await db.collection("Messages").add({ msg: "Accepted", time: Date() });
+      });
+    </script>
+  </body>
+</html>
